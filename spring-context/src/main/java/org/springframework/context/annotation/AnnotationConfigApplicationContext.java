@@ -20,8 +20,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinitionCustomizer;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.context.index.CandidateComponentsIndexLoader;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -78,6 +80,11 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 
 		//初始化路径扫描器
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
+
+		//这里主要涉及一些资源加载的问题 因为ApplicationContext 本身也是ResouceLoadr
+		//所以到这里构造的scanner 对象包含全部解析资源相关的成员变量
+		//包括 注解的filter resourcePatternResolver   metadataReaderFactory(这里头有个resouceLoader 还有个缓存map)  componentsIndex
+
 	}
 
 	/**

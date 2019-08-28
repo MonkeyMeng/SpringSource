@@ -77,6 +77,10 @@ public class AnnotationTypeFilter extends AbstractTypeHierarchyTraversingFilter 
 		super(annotationType.isAnnotationPresent(Inherited.class), considerInterfaces);
 		this.annotationType = annotationType;
 		this.considerMetaAnnotations = considerMetaAnnotations;
+
+		//对象构造完了之后我们就得到一个过滤条件Filter
+		//主要包括considerInherited considerInterfaces（super） annotationType considerMetaAnnotations boolean类型的变量
+
 	}
 
 	/**

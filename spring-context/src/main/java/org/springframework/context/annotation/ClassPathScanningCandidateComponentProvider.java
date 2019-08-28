@@ -193,7 +193,13 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	}
 
 	/**
+	 *  这个注解会为Component注解增加默认过滤器
 	 * Register the default filter for {@link Component @Component}.
+	 * meta-annotation是元注解的意思就是标注其他注解的注解
+	 * 这个注释的含义就是为诸如Repository Controller这些被Component修饰的注解
+	 * 增加默认的过滤器
+	 * spring Stereotype Annotation俗称为模式注解
+	 * Annotation不允许继承,没有类派生子类的特性,因此Spring采用元标注的方式实现注解之间的派生
 	 * <p>This will implicitly register all annotations that have the
 	 * {@link Component @Component} meta-annotation including the
 	 * {@link Repository @Repository}, {@link Service @Service}, and
@@ -204,8 +210,13 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	 */
 	@SuppressWarnings("unchecked")
 	protected void registerDefaultFilters() {
+
+		//为一些注解 添加Filter
 		this.includeFilters.add(new AnnotationTypeFilter(Component.class));
 		ClassLoader cl = ClassPathScanningCandidateComponentProvider.class.getClassLoader();
+
+
+		//@javax.annotation.ManagedBean创建一个托管bean
 		try {
 			this.includeFilters.add(new AnnotationTypeFilter(
 					((Class<? extends Annotation>) ClassUtils.forName("javax.annotation.ManagedBean", cl)), false));
@@ -213,6 +224,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		}
 		catch (ClassNotFoundException ex) {
 			// JSR-250 1.1 API (as included in Java EE 6) not available - simply skip.
+			ex.printStackTrace();
 		}
 		try {
 			this.includeFilters.add(new AnnotationTypeFilter(
@@ -221,6 +233,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		}
 		catch (ClassNotFoundException ex) {
 			// JSR-330 API not available - simply skip.
+			ex.printStackTrace();
 		}
 	}
 
@@ -262,8 +275,13 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	 */
 	@Override
 	public void setResourceLoader(@Nullable ResourceLoader resourceLoader) {
+		//资源模板处理类 个人理解就是处理一些约定俗成的路径规则
 		this.resourcePatternResolver = ResourcePatternUtils.getResourcePatternResolver(resourceLoader);
+
+		//这块暂时不了解是干啥的
 		this.metadataReaderFactory = new CachingMetadataReaderFactory(resourceLoader);
+
+
 		this.componentsIndex = CandidateComponentsIndexLoader.loadIndex(this.resourcePatternResolver.getClassLoader());
 	}
 
