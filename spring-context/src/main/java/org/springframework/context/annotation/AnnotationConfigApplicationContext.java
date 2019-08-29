@@ -110,8 +110,11 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... annotatedClasses) {
 		this();
+		//到这里对象初始化完成 获得了这个容器的主要结构
 		//注册bean
 		register(annotatedClasses);
+		//到这里实际上将配置类的BeanDefination存储到了beanfactory中的map中
+
 		//初始化上下文
 		refresh();
 	}

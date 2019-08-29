@@ -202,6 +202,7 @@ public class AnnotatedBeanDefinitionReader {
 	/**
 	 * Register a bean from the given bean class, deriving its metadata from
 	 * class-declared annotations.
+	 * 读取给定的Bean Class 并完成解析和注册和metadata的读取
 	 * @param annotatedClass the class of the bean
 	 * @param instanceSupplier a callback for creating an instance of the bean
 	 * (may be {@code null})
@@ -226,11 +227,11 @@ public class AnnotatedBeanDefinitionReader {
 		//创建bean实例的回调
 		abd.setInstanceSupplier(instanceSupplier);
 
-		//解析作用域并放到abd里头
+		//解析作用域相关的东西并放到类定义中
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
 		abd.setScope(scopeMetadata.getScopeName());
 
-		//根据abd生成bean的名字
+		//根据abd生成bean的名字(内部逻辑就是先看注解中指定的value 没有的话根据类名生成一个)
 		String beanName = (name != null ? name : this.beanNameGenerator.generateBeanName(abd, this.registry));
 
 		//解析通用注解
@@ -255,14 +256,14 @@ public class AnnotatedBeanDefinitionReader {
 			}
 		}
 
-		//用于自定义bean注册 通常是在容器创建之后将bean手动注册进容器中
+		//用于自定义bean注册 通常是在容器创建之后将bean手动注册进容器中在初始化的过程中暂时用不到
 		for (BeanDefinitionCustomizer customizer : definitionCustomizers) {
 			customizer.customize(abd);
 		}
 		//生成一个beanName--abd的映射
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
 
-		//根据bean配置的scope来判断是否生成代理对象
+		//根据bean配置的scope来判断是否生成代理对象的BeanDefination
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
 		//注册bean
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);

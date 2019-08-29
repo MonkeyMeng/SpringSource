@@ -224,7 +224,6 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		}
 		catch (ClassNotFoundException ex) {
 			// JSR-250 1.1 API (as included in Java EE 6) not available - simply skip.
-			ex.printStackTrace();
 		}
 		try {
 			this.includeFilters.add(new AnnotationTypeFilter(
@@ -233,7 +232,6 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 		}
 		catch (ClassNotFoundException ex) {
 			// JSR-330 API not available - simply skip.
-			ex.printStackTrace();
 		}
 	}
 

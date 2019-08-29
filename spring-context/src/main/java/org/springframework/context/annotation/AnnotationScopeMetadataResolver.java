@@ -79,9 +79,14 @@ public class AnnotationScopeMetadataResolver implements ScopeMetadataResolver {
 		ScopeMetadata metadata = new ScopeMetadata();
 		if (definition instanceof AnnotatedBeanDefinition) {
 			AnnotatedBeanDefinition annDef = (AnnotatedBeanDefinition) definition;
+			//通过传进来的bean定义 遍历 找Scope注解对应的属性信息
+			//这个层级太深了 先放弃
 			AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(
 					annDef.getMetadata(), this.scopeAnnotationType);
 			if (attributes != null) {
+				//如果配置了Scope注解的话	拿到value和proxyMode
+				//proxyMode是用来解决将session作用域的bean 注入到单例bean时 bean还没生成的问题
+				// //先生成一个代理对象搞上去 等到真正的调用sessionBean 方法的时候 再去解析真正的session scope的bean
 				metadata.setScopeName(attributes.getString("value"));
 				ScopedProxyMode proxyMode = attributes.getEnum("proxyMode");
 				if (proxyMode == ScopedProxyMode.DEFAULT) {

@@ -60,6 +60,7 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 	 * form of {@link org.springframework.core.annotation.AnnotationAttributes} instead
 	 * of actual {@link Annotation} instances.
 	 * @param introspectedClass the Class to introspect
+	 *
 	 * @param nestedAnnotationsAsMap return nested annotations and annotation arrays as
 	 * {@link org.springframework.core.annotation.AnnotationAttributes} for compatibility
 	 * with ASM-based {@link AnnotationMetadata} implementations
@@ -69,6 +70,8 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 		super(introspectedClass);
 		//存储类上的注解信息
 		this.annotations = introspectedClass.getAnnotations();
+
+		//是否返回嵌套Annotation（暂时不知道干啥的）
 		this.nestedAnnotationsAsMap = nestedAnnotationsAsMap;
 	}
 

@@ -139,6 +139,7 @@ abstract class ConfigurationClassUtils {
 	 * reflection-detected bean definition; {@code false} otherwise
 	 */
 	public static boolean isConfigurationCandidate(AnnotationMetadata metadata) {
+		//确实是配置类 或者 类似的配置类
 		return (isFullConfigurationCandidate(metadata) || isLiteConfigurationCandidate(metadata));
 	}
 

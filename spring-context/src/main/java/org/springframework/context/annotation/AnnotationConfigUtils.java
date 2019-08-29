@@ -251,6 +251,7 @@ public abstract class AnnotationConfigUtils {
 		if (lazy != null) {
 			abd.setLazyInit(lazy.getBoolean("value"));
 		}
+		//这里为啥要判断一下待考察
 		else if (abd.getMetadata() != metadata) {
 			lazy = attributesFor(abd.getMetadata(), Lazy.class);
 			if (lazy != null) {
@@ -274,15 +275,19 @@ public abstract class AnnotationConfigUtils {
 		if (description != null) {
 			abd.setDescription(description.getString("value"));
 		}
+		//实际上就是看一下当前这个bean定义有没有以上的这些注解 如果有的话 那么就将这些注解解析出值放入abd对应的字段参数当中
 	}
 
+	//这个方法就是完善Holder中的内容
 	static BeanDefinitionHolder applyScopedProxyMode(
 			ScopeMetadata metadata, BeanDefinitionHolder definition, BeanDefinitionRegistry registry) {
 
 		ScopedProxyMode scopedProxyMode = metadata.getScopedProxyMode();
+		//如果在解析scope标签的时候没有指定Scope或者ProxyMode 那么就直接返回这个定义
 		if (scopedProxyMode.equals(ScopedProxyMode.NO)) {
 			return definition;
 		}
+		//interface和targetclass采用不同的代理方式生成代理对象
 		boolean proxyTargetClass = scopedProxyMode.equals(ScopedProxyMode.TARGET_CLASS);
 		return ScopedProxyCreator.createScopedProxy(definition, registry, proxyTargetClass);
 	}
