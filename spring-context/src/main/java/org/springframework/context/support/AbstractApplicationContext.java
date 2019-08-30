@@ -596,6 +596,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		this.closed.set(false);
 		this.active.set(true);
 
+		//处于效率考虑 提前判断一下 避免里面不必要的计算
+		//如果直接logger.debug的话不管要不要执行 那么那个getDisplayName都要计算一遍 这个时候如果里面不执行那么就白计算了
+		//trace<debug<info<warn<error<fatal
 		if (logger.isDebugEnabled()) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Refreshing " + this);
@@ -611,7 +614,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Validate that all properties marked as required are resolvable:
 		// see ConfigurablePropertyResolver#setRequiredProperties
-		//校验属性的合法性
+		//校验这个容器所依赖的各种配置是不是都全了
 		getEnvironment().validateRequiredProperties();
 
 		//保存一些容器中的监听器 干啥用待定
@@ -628,6 +631,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// Allow for the collection of early ApplicationEvents,
 		// to be published once the multicaster is available...
 		this.earlyApplicationEvents = new LinkedHashSet<>();
+
+		//初始化 applicationListeners 和 earlyApplicationEvents 这两个数据结构
+		//如果 earlyApplicationListeners 存在的话就加到 applicationListeners中
 	}
 
 	/**

@@ -204,6 +204,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	public void setSerializationId(@Nullable String serializationId) {
 
 		//相当于复制操作 原来的那个beanfactory
+		//弱引用的应用是为了防止内存泄漏 个人觉得是如果一个BeanFactory用不到了 外部如果没有强引用指向它的时候 不用手动处理就可以被回收
 		if (serializationId != null) {
 			serializableFactories.put(serializationId, new WeakReference<>(this));
 		}
