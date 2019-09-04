@@ -59,18 +59,20 @@ final class PostProcessorRegistrationDelegate {
 		// Invoke BeanDefinitionRegistryPostProcessors first, if any.
 		Set<String> processedBeans = new HashSet<>();
 
-		//refresh 的时候传进来的是GenericApplicationContext的成员属性DefaultListenableBeanFactory
-
+		//如果这个beanFactory有注册beanDef的功能的话
 		if (beanFactory instanceof BeanDefinitionRegistry) {
+
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
-			//后处理分成两部分 一部分是通用的处理 一部分是注册后处理（具体有啥用待研究）
+			//beanFactory的后处理器分两种 一种是普通的regularPostProcessors 一种是如果这个beanFactory有注册bean的功能的话 需要的registryProcessors
 			List<BeanFactoryPostProcessor> regularPostProcessors = new ArrayList<>();
 			List<BeanDefinitionRegistryPostProcessor> registryProcessors = new ArrayList<>();
 
 			for (BeanFactoryPostProcessor postProcessor : beanFactoryPostProcessors) {
+				//处理传进来的可每一个后置处理器 其中BeanDefinitionRegistryPostProcessor 优先处理
 				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) {
 					BeanDefinitionRegistryPostProcessor registryProcessor =
 							(BeanDefinitionRegistryPostProcessor) postProcessor;
+					//如果这个beanFactory是一个BeanDefinitionRegistry 那么直接执行方法
 					registryProcessor.postProcessBeanDefinitionRegistry(registry);
 					registryProcessors.add(registryProcessor);
 				}
@@ -86,8 +88,10 @@ final class PostProcessorRegistrationDelegate {
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
+			//查看已经注册的beanRegistry后置处理器(在构造reader的时候放进去的那个内置的ConfigurationClassPostProcessor)
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
+
 			for (String ppName : postProcessorNames) {
 				if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) {
 					currentRegistryProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));

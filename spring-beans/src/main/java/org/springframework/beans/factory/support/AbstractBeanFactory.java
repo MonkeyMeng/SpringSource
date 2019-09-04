@@ -697,6 +697,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	@Override
 	public boolean containsLocalBean(String name) {
 		String beanName = transformedBeanName(name);
+		//已经实例化好的单例bean 或者已经初始化进beanDefination但是还没实例化的bean
+		//并且 这个bean如果以&开头 那么必须是个工厂bean 否则就认为不包含
 		return ((containsSingleton(beanName) || containsBeanDefinition(beanName)) &&
 				(!BeanFactoryUtils.isFactoryDereference(name) || isFactoryBean(beanName)));
 	}
@@ -1236,10 +1238,14 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	}
 
 	/**
+	 *  返回一个RootBeanDefinition 如果传进来的bean定义是一个子bean 那么需要把它和它的父bean合并
+	 *
 	 * Return a RootBeanDefinition for the given bean, by merging with the
 	 * parent if the given bean's definition is a child bean definition.
 	 * @param beanName the name of the bean definition
 	 * @param bd the original bean definition (Root/ChildBeanDefinition)
+	 *
+	 *  如果targetbean是个内部bean 那么containingBd 就是外部那个壳儿bean 如果target bean是个顶级bean 那么这个参数就是null
 	 * @param containingBd the containing bean definition in case of inner bean,
 	 * or {@code null} in case of a top-level bean
 	 * @return a (potentially merged) RootBeanDefinition for the given bean

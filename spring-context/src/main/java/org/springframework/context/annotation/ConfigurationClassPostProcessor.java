@@ -66,6 +66,7 @@ import org.springframework.util.ClassUtils;
 import static org.springframework.context.annotation.AnnotationConfigUtils.CONFIGURATION_BEAN_NAME_GENERATOR;
 
 /**
+ * spring内部的配置类处理器 用来解析@Configuration注解 实现了BeanDefinitionRegistryPostProcessor接口说明是通过beanfactory后置处理器处理的
  * {@link BeanFactoryPostProcessor} used for bootstrapping processing of
  * {@link Configuration @Configuration} classes.
  *

@@ -17,6 +17,12 @@
 package org.springframework.beans;
 
 /**
+ *
+ * 这个接口是一个注册器 注册什么东西呢 是PropertyEditorRegistry
+ * PropertyEditorRegistry 又是什么东西呢 从命名上来看是一个PropertyEditor的策略接口
+ * PropertyEditor 又是什么呢
+ * 它是一个属性编辑器的接口，规定了将外部设置值转换为内部JavaBean属性值的转换接口方法
+ * PropertyEditorRegistrar 是策略模式中的Context 用来屏蔽客户端和具体策略类的耦合
  * Interface for strategies that register custom
  * {@link java.beans.PropertyEditor property editors} with a
  * {@link org.springframework.beans.PropertyEditorRegistry property editor registry}.

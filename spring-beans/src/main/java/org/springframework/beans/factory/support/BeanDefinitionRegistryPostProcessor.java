@@ -20,9 +20,12 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 
 /**
+ * 普通的BeanFactoryPostProcessor接口的一个扩展，它允许在常规的后置处理器开始之前进行额外bean的注册
  * Extension to the standard {@link BeanFactoryPostProcessor} SPI, allowing for
  * the registration of further bean definitions <i>before</i> regular
- * BeanFactoryPostProcessor detection kicks in. In particular,
+ * BeanFactoryPostProcessor detection kicks in.
+ * 并且这个beanRegistry后置处理器还能注册其他的普通后置处理器
+ * In particular,
  * BeanDefinitionRegistryPostProcessor may register further bean definitions
  * which in turn define BeanFactoryPostProcessor instances.
  *

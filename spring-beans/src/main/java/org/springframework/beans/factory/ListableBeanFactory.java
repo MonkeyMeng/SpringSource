@@ -24,6 +24,9 @@ import org.springframework.core.ResolvableType;
 import org.springframework.lang.Nullable;
 
 /**
+ * 这个接口是一个BeanFactory接口的一个扩展 继承自这个接口的类 里面存储的bean实例需要可以被列举出来
+ * 换句话说就是不是那种 取得时候才生成的那种 如果一个beanfactory是预先将所有bean定义都加载进来的这种方式
+ * 那么应该实现这个接口
  * Extension of the {@link BeanFactory} interface to be implemented by bean factories
  * that can enumerate all their bean instances, rather than attempting bean lookup
  * by name one by one as requested by clients. BeanFactory implementations that
@@ -88,6 +91,7 @@ public interface ListableBeanFactory extends BeanFactory {
 	String[] getBeanDefinitionNames();
 
 	/**
+	 *
 	 * Return the names of beans matching the given type (including subclasses),
 	 * judging from either bean definitions or the value of {@code getObjectType}
 	 * in the case of FactoryBeans.
@@ -144,11 +148,15 @@ public interface ListableBeanFactory extends BeanFactory {
 	String[] getBeanNamesForType(@Nullable Class<?> type);
 
 	/**
+	 *
 	 * Return the names of beans matching the given type (including subclasses),
 	 * judging from either bean definitions or the value of {@code getObjectType}
 	 * in the case of FactoryBeans.
 	 * <p><b>NOTE: This method introspects top-level beans only.</b> It does <i>not</i>
 	 * check nested beans which might match the specified type as well.
+	 *
+	 * 如果allowEagerInit true的话 那么对于FactoryBean的话 需要先实例化它然后比它的子类 子类没有匹配的再比它自己
+	 * 如果allowEagerInit false的话 那么直接比它自己就ok 不用实例化
 	 * <p>Does consider objects created by FactoryBeans if the "allowEagerInit" flag is set,
 	 * which means that FactoryBeans will get initialized. If the object created by the
 	 * FactoryBean doesn't match, the raw FactoryBean itself will be matched against the

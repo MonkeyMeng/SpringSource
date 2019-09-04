@@ -21,12 +21,16 @@ import org.springframework.core.ResolvableType;
 import org.springframework.lang.Nullable;
 
 /**
+ *  这是我们使用Spring bean容器时候的一个顶级接口 提供了最基本的bean容器暴露的方法
+ *  像ListableBeanFactory 或者ConfigurableBeanFactory 这种是根据特定需求设计出来的功能更强的接口
  * The root interface for accessing a Spring bean container.
  * This is the basic client view of a bean container;
  * further interfaces such as {@link ListableBeanFactory} and
  * {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}
  * are available for specific purposes.
  *
+ * 这个接口的具体实现类需要可以保存bean的定义，这些bean的定义由一个字符串表示的名字唯一确定
+ * beanFactory可以根据这些类定义指定的作用域生成原型或者单例的对象
  * <p>This interface is implemented by objects that hold a number of bean definitions,
  * each uniquely identified by a String name. Depending on the bean definition,
  * the factory will return either an independent instance of a contained object
@@ -37,6 +41,7 @@ import org.springframework.lang.Nullable;
  * 2.0, further scopes are available depending on the concrete application
  * context (e.g. "request" and "session" scopes in a web environment).
  *
+ * 这种做法的重点就是 BeanFactory就是一个集中式的 bean注册器 和配置管理器
  * <p>The point of this approach is that the BeanFactory is a central registry
  * of application components, and centralizes configuration of application
  * components (no more do individual objects need to read properties files,

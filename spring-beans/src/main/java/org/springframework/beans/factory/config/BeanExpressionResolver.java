@@ -20,9 +20,9 @@ import org.springframework.beans.BeansException;
 import org.springframework.lang.Nullable;
 
 /**
+ * 计算一个表达式的值的策略接口 实际就是处理怎么解析表达式
  * Strategy interface for resolving a value through evaluating it
  * as an expression, if applicable.
- *
  * <p>A raw {@link org.springframework.beans.factory.BeanFactory} does not
  * contain a default implementation of this strategy. However,
  * {@link org.springframework.context.ApplicationContext} implementations
