@@ -72,6 +72,7 @@ public abstract class BeanFactoryUtils {
 	}
 
 	/**
+	 *  默认&开头的是一个FactoryBean 这个方法的目的就是去掉Factorybean的头 还原真实的名字
 	 * Return the actual bean name, stripping out the factory dereference
 	 * prefix (if any, also stripping repeated factory prefixes if found).
 	 * @param name the name of the bean

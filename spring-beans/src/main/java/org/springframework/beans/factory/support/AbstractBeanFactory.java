@@ -1239,7 +1239,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 	/**
 	 *  返回一个RootBeanDefinition 如果传进来的bean定义是一个子bean 那么需要把它和它的父bean合并
-	 *
+	 *  merge的含义就是parent和child进行merge
 	 * Return a RootBeanDefinition for the given bean, by merging with the
 	 * parent if the given bean's definition is a child bean definition.
 	 * @param beanName the name of the bean definition
@@ -1264,6 +1264,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 
 			if (mbd == null) {
+				//没有parent bean的话 直接取bean定义
 				if (bd.getParentName() == null) {
 					// Use copy of given root bean definition.
 					if (bd instanceof RootBeanDefinition) {
@@ -1273,11 +1274,14 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 						mbd = new RootBeanDefinition(bd);
 					}
 				}
+				//如果这个bean是有parent的情况
 				else {
 					// Child bean definition: needs to be merged with parent.
 					BeanDefinition pbd;
 					try {
 						String parentBeanName = transformedBeanName(bd.getParentName());
+						//个人理解 这里是可以支持容器的扩展 如果当前容器中没有找到这个bean的定义 那么就从父容器中找
+						//如果父容器也没有的话 那么就抛异常
 						if (!beanName.equals(parentBeanName)) {
 							pbd = getMergedBeanDefinition(parentBeanName);
 						}
@@ -1299,6 +1303,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					}
 					// Deep copy with overridden values.
 					mbd = new RootBeanDefinition(pbd);
+					//继承父类的方法并进行重写
 					mbd.overrideFrom(bd);
 				}
 
@@ -1311,12 +1316,16 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				// Let's correct this on the fly here, since this might be the result of
 				// parent-child merging for the outer bean, in which case the original inner bean
 				// definition will not have inherited the merged outer bean's singleton status.
+				//这个方法本来是用来处理 child-parent这种关系的bean的 但是呢 考虑到inner-outer这种情况的bean 一旦传进来的beanName是一个innerbean
+				//那我们在获取这个innerbean信息的时候是没办法考虑Outerbean的属性的 但是呢 如果outerbean 是非单例的 那么里面的成员属性也都是非单例的
+				///所以说我们需要在这里修正一下这个innerbean的定义 让它跟着outerbean的scope走
 				if (containingBd != null && !containingBd.isSingleton() && mbd.isSingleton()) {
 					mbd.setScope(containingBd.getScope());
 				}
 
 				// Cache the merged bean definition for the time being
 				// (it might still get re-merged later on in order to pick up metadata changes)
+				//这里只缓存顶级bean 不考虑innerbean的情况
 				if (containingBd == null && isCacheBeanMetadata()) {
 					this.mergedBeanDefinitions.put(beanName, mbd);
 				}
