@@ -115,6 +115,9 @@ abstract class ConfigurationClassUtils {
 			}
 		}
 
+		//这里是spring判断配置类的标准
+		//如果有configuration注解的话 认为是一个完全配置类
+		//如果没有configuration注解 但是有candidateIndicators(是个set 包含 Component ComponentScan Import 这些的注解的话 认为是一个简化的配置类)
 		if (isFullConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
@@ -126,6 +129,7 @@ abstract class ConfigurationClassUtils {
 		}
 
 		// It's a full or lite configuration candidate... Let's determine the order value, if any.
+		//如果这个类被spring认为是个配置类的话 那么 解析里面的order属性的值 放到Bean定义中
 		Integer order = getOrder(metadata);
 		if (order != null) {
 			beanDef.setAttribute(ORDER_ATTRIBUTE, order);

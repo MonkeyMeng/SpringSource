@@ -277,6 +277,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 				}
 			}
 			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
+				//将配置类加到 配置类候选集中
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
 			}
 		}
