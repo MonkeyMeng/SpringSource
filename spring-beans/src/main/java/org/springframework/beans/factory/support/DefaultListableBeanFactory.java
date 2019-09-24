@@ -509,12 +509,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			//只支持非别名的情况
 			if (!isAlias(beanName)) {
 				try {
-					//根据名字把定义拿出来 然后跟type做比较
+					//根据名字把定义拿出来 mergedbeandefination
 					RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 
 					// Only check bean definition if it is complete.
-					if (!mbd.isAbstract() && (allowEagerInit ||
-							(mbd.hasBeanClass() || !mbd.isLazyInit() || isAllowEagerClassLoading()) &&
+
+					if (!mbd.isAbstract() &&
+							(allowEagerInit || (mbd.hasBeanClass() || !mbd.isLazyInit() || isAllowEagerClassLoading()) &&
 									!requiresEagerInitForType(mbd.getFactoryBeanName()))) {
 						// In case of FactoryBean, match object created by FactoryBean.
 						boolean isFactoryBean = isFactoryBean(beanName, mbd);

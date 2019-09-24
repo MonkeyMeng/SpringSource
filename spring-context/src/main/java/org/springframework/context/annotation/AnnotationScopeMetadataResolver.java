@@ -80,7 +80,6 @@ public class AnnotationScopeMetadataResolver implements ScopeMetadataResolver {
 		if (definition instanceof AnnotatedBeanDefinition) {
 			AnnotatedBeanDefinition annDef = (AnnotatedBeanDefinition) definition;
 			//通过传进来的bean定义 遍历 找Scope注解对应的属性信息
-			//这个层级太深了 先放弃
 			AnnotationAttributes attributes = AnnotationConfigUtils.attributesFor(
 					annDef.getMetadata(), this.scopeAnnotationType);
 			if (attributes != null) {
@@ -89,6 +88,7 @@ public class AnnotationScopeMetadataResolver implements ScopeMetadataResolver {
 				// //先生成一个代理对象搞上去 等到真正的调用sessionBean 方法的时候 再去解析真正的session scope的bean
 				metadata.setScopeName(attributes.getString("value"));
 				ScopedProxyMode proxyMode = attributes.getEnum("proxyMode");
+				//https://blog.csdn.net/u013423085/article/details/82872533
 				if (proxyMode == ScopedProxyMode.DEFAULT) {
 					proxyMode = this.defaultProxyMode;
 				}

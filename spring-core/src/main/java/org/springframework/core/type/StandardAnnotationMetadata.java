@@ -28,6 +28,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.MultiValueMap;
 
 /**
+ *
+ * 利用标准的java反射来获取类信息
+ * 注意一下 introspect 这个词 中文含义是内省
+ * 值得是java可以通过反射的方式拿到自己的类信息(自我获取的意思)
  * {@link AnnotationMetadata} implementation that uses standard reflection
  * to introspect a given {@link Class}.
  *

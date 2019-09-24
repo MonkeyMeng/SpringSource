@@ -72,6 +72,7 @@ public class SimpleMetadataReaderFactory implements MetadataReaderFactory {
 	}
 
 
+
 	@Override
 	public MetadataReader getMetadataReader(String className) throws IOException {
 		try {
@@ -100,6 +101,8 @@ public class SimpleMetadataReaderFactory implements MetadataReaderFactory {
 
 	@Override
 	public MetadataReader getMetadataReader(Resource resource) throws IOException {
+
+		//通过默认的类加载器加载特定的Resource的信息 来构造metaDataReader 再通过reader获取metadata
 		return new SimpleMetadataReader(resource, this.resourceLoader.getClassLoader());
 	}
 

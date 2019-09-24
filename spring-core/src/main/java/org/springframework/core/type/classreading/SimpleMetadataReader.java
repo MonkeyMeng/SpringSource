@@ -61,6 +61,10 @@ final class SimpleMetadataReader implements MetadataReader {
 			is.close();
 		}
 
+		//这是一个访问者设计模式
+		//访问者设计模式主要用在对象结构相对稳定 操作经常扩展的情况下 实际上是将结构和操作分离开
+		//这里的情况下ClassReader 的对象结构固定 但是针对这个对象的访问可能会经常扩展
+		//https://www.jianshu.com/p/1f1049d0a0f4
 		AnnotationMetadataReadingVisitor visitor = new AnnotationMetadataReadingVisitor(classLoader);
 		classReader.accept(visitor, ClassReader.SKIP_DEBUG);
 

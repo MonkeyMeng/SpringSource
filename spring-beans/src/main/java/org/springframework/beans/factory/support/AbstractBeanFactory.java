@@ -1303,7 +1303,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 					}
 					// Deep copy with overridden values.
 					mbd = new RootBeanDefinition(pbd);
-					//继承父类的方法并进行重写
 					mbd.overrideFrom(bd);
 				}
 
@@ -1498,6 +1497,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 
 	/**
+	 * 默认不处理 FactoryBEan 只处理标准bean
 	 * Predict the eventual bean type (of the processed bean instance) for the
 	 * specified bean. Called by {@link #getType} and {@link #isTypeMatch}.
 	 * Does not need to handle FactoryBeans specifically, since it is only
@@ -1531,6 +1531,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected boolean isFactoryBean(String beanName, RootBeanDefinition mbd) {
 		Class<?> beanType = predictBeanType(beanName, mbd, FactoryBean.class);
+		//beanType这个类是否是FactoryBean的子类或子接口
 		return (beanType != null && FactoryBean.class.isAssignableFrom(beanType));
 	}
 

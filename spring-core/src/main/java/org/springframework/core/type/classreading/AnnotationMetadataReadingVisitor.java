@@ -37,6 +37,9 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 /**
+ *
+ *  关于asm 参考http://www.blogjava.net/DLevin/archive/2014/06/25/414292.html
+ * AnnotationMetadataReadingVisitor 提供了获取java信息的字节码层面的实现
  * ASM class visitor which looks for the class name and implemented types as
  * well as for the annotations defined on the class, exposing them through
  * the {@link org.springframework.core.type.AnnotationMetadata} interface.

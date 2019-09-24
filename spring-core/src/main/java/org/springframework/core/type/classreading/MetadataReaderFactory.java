@@ -32,6 +32,7 @@ import org.springframework.core.io.Resource;
 public interface MetadataReaderFactory {
 
 	/**
+	 * 获得某个类的元数据读取器
 	 * Obtain a MetadataReader for the given class name.
 	 * @param className the class name (to be resolved to a ".class" file)
 	 * @return a holder for the ClassReader instance (never {@code null})

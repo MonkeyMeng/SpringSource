@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.springframework.expression.spel.support;
+package org.springframework.expression..support;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

@@ -17,6 +17,8 @@
 package org.springframework.context.annotation;
 
 /**
+ *
+ * 用于配合configuration注解进行更细力度的注册控制
  * A {@link Condition} that offers more fine-grained control when used with
  * {@code @Configuration}. Allows certain {@link Condition Conditions} to adapt when they match
  * based on the configuration phase. For example, a condition that checks if a bean

@@ -84,6 +84,7 @@ class ConditionEvaluator {
 		}
 
 		//phase是是否需要处理的一个时机枚举类
+		//用于确定在什么时候解析condition
 		if (phase == null) {
 			if (metadata instanceof AnnotationMetadata &&
 					ConfigurationClassUtils.isConfigurationCandidate((AnnotationMetadata) metadata)) {

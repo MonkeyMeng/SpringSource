@@ -98,6 +98,9 @@ abstract class ConfigurationClassUtils {
 			Class<?> beanClass = ((AbstractBeanDefinition) beanDef).getBeanClass();
 			metadata = new StandardAnnotationMetadata(beanClass, true);
 		}
+		//提供了一种获取类的元数据信息的方式
+		//通过工厂模式 metadataReaderFactory 构造一个默认的 SimpleMetadataReader
+		//再通过SimpleMetadataReader 对外暴露获取metadata的方法 具体怎么获取的metadata 可以进到SimpleMetadataReader 看一下
 		else {
 			try {
 				MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(className);
