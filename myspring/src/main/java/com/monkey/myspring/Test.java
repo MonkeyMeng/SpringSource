@@ -13,6 +13,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Test {
 
 	public static void main(String[] args) {
+		System.out.println("hahs"+args[0]);
 		AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
 		TestBean testBean = annotationConfigApplicationContext.getBean(TestBean.class);

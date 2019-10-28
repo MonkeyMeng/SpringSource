@@ -932,7 +932,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 		//首次创建这个bean
 		else {
-			//当前bean的创建是否已经开始（目测是解决循环依赖的问题 不能确定）
+			//当前bean的创建是否已经开始
 			if (hasBeanCreationStarted()) {
 				// Cannot modify startup-time collection elements anymore (for stable iteration)
 				synchronized (this.beanDefinitionMap) {

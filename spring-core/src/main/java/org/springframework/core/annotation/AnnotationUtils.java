@@ -1004,6 +1004,7 @@ public abstract class AnnotationUtils {
 	 * @see #getAnnotationAttributes(Annotation)
 	 */
 	public static void validateAnnotation(Annotation annotation) {
+		//取到annotation里面的参数 如果返回的是class对象 那么看一下能不能执行成功 成功返回
 		for (Method method : getAttributeMethods(annotation.annotationType())) {
 			Class<?> returnType = method.getReturnType();
 			if (returnType == Class.class || returnType == Class[].class) {

@@ -175,6 +175,7 @@ abstract class ConfigurationClassUtils {
 			return false;
 		}
 
+		//如果有这些注解其中之一就认为是一个配置类
 		// Any of the typical annotations found?
 		for (String indicator : candidateIndicators) {
 			if (metadata.isAnnotated(indicator)) {
@@ -182,6 +183,7 @@ abstract class ConfigurationClassUtils {
 			}
 		}
 
+		//如果没有这些注解
 		// Finally, let's look for @Bean methods...
 		try {
 			return metadata.hasAnnotatedMethods(Bean.class.getName());
