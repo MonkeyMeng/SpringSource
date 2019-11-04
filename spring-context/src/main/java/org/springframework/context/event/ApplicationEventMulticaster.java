@@ -22,6 +22,8 @@ import org.springframework.core.ResolvableType;
 import org.springframework.lang.Nullable;
 
 /**
+ *
+ * 这就是一个监听器的管理器 各种监听器向这个管理器注册 然后管理器 将事件推送给监听器
  * Interface to be implemented by objects that can manage a number of
  * {@link ApplicationListener} objects, and publish events to them.
  *

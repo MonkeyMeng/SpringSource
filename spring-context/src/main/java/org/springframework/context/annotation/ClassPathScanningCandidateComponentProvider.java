@@ -444,7 +444,10 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 				if (resource.isReadable()) {
 					try {
 						MetadataReader metadataReader = getMetadataReaderFactory().getMetadataReader(resource);
+
+						//这个方法标明了哪些组件可以被spring识别并注入进去
 						if (isCandidateComponent(metadataReader)) {
+							//另外一种bean定义 继承自通用bean定义
 							ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
 							sbd.setResource(resource);
 							sbd.setSource(resource);

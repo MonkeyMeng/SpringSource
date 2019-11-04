@@ -75,6 +75,7 @@ class ComponentScanAnnotationParser {
 		//针对componnetscan提供的属性构造一个Scaner 然后利用构造好的扫描器进行扫描
 		//	最终生成所有符合要求的bean定义
 	public Set<BeanDefinitionHolder> parse(AnnotationAttributes componentScan, final String declaringClass) {
+
 		ClassPathBeanDefinitionScanner scanner = new ClassPathBeanDefinitionScanner(this.registry,
 				componentScan.getBoolean("useDefaultFilters"), this.environment, this.resourceLoader);
 

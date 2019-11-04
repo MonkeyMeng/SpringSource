@@ -27,6 +27,7 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.lang.Nullable;
 
 /**
+ * 可以比较继承关系的类型过滤器
  * Type filter that is aware of traversing over hierarchy.
  *
  * <p>This filter is useful when matching needs to be made based on potentially the
@@ -42,8 +43,10 @@ public abstract class AbstractTypeHierarchyTraversingFilter implements TypeFilte
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	//考虑继承
 	private final boolean considerInherited;
 
+	//考虑接口
 	private final boolean considerInterfaces;
 
 

@@ -33,7 +33,7 @@ import org.springframework.core.type.classreading.MetadataReaderFactory;
 @FunctionalInterface
 public interface TypeFilter {
 
-	/**
+	/** 通过元数据信息判断两个类是否相符
 	 * Determine whether this filter matches for the class described by
 	 * the given metadata.
 	 * @param metadataReader the metadata reader for the target class

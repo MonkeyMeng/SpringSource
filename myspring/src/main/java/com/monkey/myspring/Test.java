@@ -1,6 +1,7 @@
 package com.monkey.myspring;
 
 
+import com.monkey.myspring.ciculardependency.A;
 import com.monkey.myspring.parentandson.Son;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.FactoryBean;
@@ -8,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-
 
 public class Test {
 
@@ -18,6 +18,9 @@ public class Test {
 
 		TestBean testBean = annotationConfigApplicationContext.getBean(TestBean.class);
 		testBean.justDoIt();
+
+		A a = annotationConfigApplicationContext.getBean(A.class);
+		a.a();
 //		System.out.println("beanFactory:"+annotationConfigApplicationContext.getBeanFactory());
 
 //		ApplicationContext xmlApplicationContext = new ClassPathXmlApplicationContext();

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
-@Component
 public class A {
 
 	@Autowired
